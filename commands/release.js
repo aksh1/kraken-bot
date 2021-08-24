@@ -61,7 +61,8 @@ module.exports.run = async (bot, message, args, extras) => {
 
                                             mongoClient.db("mobile_app").collection("releases").insertOne({map});
 
-                                            return msg.send("Success");
+                                            msg.send("Success");
+                                            setTimeout(deleteItem, 1000000, map, msg, mongoClient)
                                         }
                                         else {
                                             return msg.send("Cancelled.")
@@ -85,6 +86,12 @@ module.exports.run = async (bot, message, args, extras) => {
     for (let [k,v] of map)
       obj[k] = v
     return obj
+  }
+
+  function deleteItem(map, message, mongoClient) {
+    mongoClient.db("mobile_app").collection("releases").deleteOne({map});
+    message.send(map.get("shoeName") + " was removed from Releases.")
+
   }
 
 

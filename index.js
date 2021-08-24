@@ -2,6 +2,12 @@ const { MongoClient } = require('mongodb');
 const config = require("./config.json");
 const uri = config.url
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+const Discord = require('discord.js');
+const bot = new Discord.Client();
+const token = config.token;
+const prefix = config.prefix;
+const fs = require("fs");
+
 
 client.connect(err => {
     // perform actions on the collection object
@@ -9,12 +15,6 @@ client.connect(err => {
         console.log(err)
     }
   });
-
-const Discord = require('discord.js');
-const bot = new Discord.Client();
-const token = config.token;
-const prefix = config.prefix;
-const fs = require("fs");
 
 bot.once('ready', () => {
 	console.log('Ready!');
